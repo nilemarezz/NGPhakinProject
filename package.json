@@ -1,0 +1,25 @@
+{
+  "name": "yelpcampproject",
+  "version": "1.0.0",
+  "description": "YelpCampProject",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nilemarezz/YelpCampProject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nilemarezz/YelpCampProject/issues"
+  },
+  "homepage": "https://github.com/nilemarezz/YelpCampProject#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^2.6.1",
+    "express": "^4.17.1",
+    "nodemon": "^1.19.1"
+  }
+}
