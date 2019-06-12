@@ -1,0 +1,30 @@
+<% include partial/header%>
+
+<h1 style="margin-top:5%;">This is Add List</h1>
+
+
+<form method="post" action="/add">
+  <label for="name">name</label>
+  <input
+    type="text"
+    id="name"
+    name="name"
+    placeholder="Type Name"
+    autocomplete="off"
+    required
+  />
+
+  <label for="pic">Pic url</label>
+  <input
+    type="text"
+    id="pic"
+    name="pic"
+    placeholder="Enter your url picture"
+    autocomplete="off"
+    required
+  />
+
+  <input type="submit" name="submit" value="submit" />
+</form>
+
+<% include partial/footer%>
