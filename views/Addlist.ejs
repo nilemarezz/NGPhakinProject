@@ -1,30 +1,20 @@
 <% include partial/header%>
 
-<h1 style="margin-top:5%;">This is Add List</h1>
+<h1 style="margin-top:7%;">This is Add List</h1>
 
 
 <form method="post" action="/add">
   <label for="name">name</label>
-  <input
-    type="text"
-    id="name"
-    name="name"
-    placeholder="Type Name"
-    autocomplete="off"
-    required
-  />
+  <input type="text" id="name" name="name" placeholder="Type Name" autocomplete="off" required />
 
   <label for="pic">Pic url</label>
-  <input
-    type="text"
-    id="pic"
-    name="pic"
-    placeholder="Enter your url picture"
-    autocomplete="off"
-    required
-  />
+  <input type="text" id="pic" name="pic" placeholder="Enter your url picture" autocomplete="off" required />
+  <div class="submitform" style="float:left;margin:0;">
+    <input type="submit" name="submit" value="submit" style="width:350px;" />
+    <a class="nav-link" href="/show ">Back</a>
 
-  <input type="submit" name="submit" value="submit" />
+  </div>
 </form>
 
 <% include partial/footer%>
+<% include partial/loadeffect%>
