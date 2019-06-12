@@ -1,5 +1,6 @@
 body {
   background-color: aqua;
 }
-
-
+.nav-link,.navbar-brand{
+	color: black;
+}
