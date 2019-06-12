@@ -1,0 +1,12 @@
+<% include partial/header%>
+    <h1>Hello This is traning camp page!!</h1>
+    <a href="/">Back</a>
+    <% for(var i =0;i < camplist.length ; i++){ %>
+        <div>
+            <h4><%=camplist[i].name%></h4>
+            <img src="<%= camplist[i].pic %>" style="width:100px;height:100pz;">
+        </div>
+        
+    <%}%>
+
+<% include partial/footer%>
