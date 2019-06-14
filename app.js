@@ -1,18 +1,22 @@
 var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
+var mongoose = require("mongoose");
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.set("view engine","ejs");
+mongoose.connect("mongodb://localhost/ngPhakin",{ useNewUrlParser: true });
+
+var Pattern = new mongoose.Schema({
+    name:String,
+    pic:String
+})
+var listmenu = mongoose.model("listmenu",Pattern);
+
 
 // -------Route ----------------
-var list = [
-    {name:"Rustic Camping" ,pic:"https://travel.mthai.com/app/uploads/2016/11/15203147_1203807363022219_2421126105370502869_n-1-768x512-1.jpg"},
-    {name:"Glamorous Camping ",pic:"https://travel.mthai.com/app/uploads/2016/11/14523212_692570844225992_7634841182784910493_n.jpg"},
-    {name:"3199′ Mountain Camp",pic:"https://travel.mthai.com/app/uploads/2016/12/15078983_651748478340034_9145896130505184722_n.jpg"}
 
-]
 app.get("/",(req,res)=>{
     res.render("landing.ejs")
 })
@@ -20,13 +24,27 @@ app.get("/",(req,res)=>{
 app.post("/add",(req,res)=>{
     var name = req.body.name;
     var pic = req.body.pic;
-    list.push({name:name,pic:pic})
-    res.redirect("/show");
+    var newitem = {name:name,pic:pic};
+    listmenu.create(newitem,function(err,listmenu){
+        if(err){
+            console.log(err)
+        }else{
+            res.redirect("/show");
+        }
+    });
+    
 })
 
 app.get("/show", (req,res) =>{
+    listmenu.find({},function(err,listmenu){
+        if(err){
+            console.log(err)
+        }else{
+            console.log(listmenu)
+            res.render("showitems.ejs",{list : listmenu})
+        }
+    })
     
-    res.render("showitems.ejs",{list : list})
 })
 
 app.get("/addform", (req,res) =>{
@@ -34,5 +52,5 @@ app.get("/addform", (req,res) =>{
     res.render("Addlist.ejs")
 })
 app.listen(3000,function(){
-    console.log("Yelpcamp has started!!")
+    console.log("NGPhakin has started!!")
 });
