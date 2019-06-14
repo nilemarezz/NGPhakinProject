@@ -36,6 +36,23 @@ app.get("/show", (req,res) =>{
     
 })
 
+//show detail of that item
+app.get("/show/:id", (req,res) =>{
+
+    
+    listmenu.findById(req.params.id,function(err,listdetail){
+        if(err){
+            console.log(err);
+        }else{
+            console.log(listdetail);
+            res.render("showdesc.ejs",{list:listdetail})
+            
+        }
+    })
+    
+    
+})
+
 
 
 // Add form

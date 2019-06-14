@@ -1,148 +1,243 @@
-.headtell{
+.headtell {
   background-image: url("http://getwallpapers.com/wallpaper/full/f/2/e/856551-full-size-cute-background-1920x1200.jpg");
   text-align: center;
   padding-top: 50px;
   padding-bottom: 50px;
 }
 
-#wrapper{
-    
-    display:none;
+#wrapper {
+  display: none;
 }
-.nav-link,.navbar-brand{
-	color: black;
+.nav-link,
+.navbar-brand {
+  color: black;
 }
-h1{
+h1 {
   text-align: center;
 }
-footer{
+footer {
   width: 100%;
   position: fixed;
 }
 form {
-	margin:1.5% auto 0 auto;
-	padding:30px;
-	width:400px;
-	height:auto;
-	overflow:hidden;
-	background:white;
-	border-radius:10px;
+  margin: 1.5% auto 0 auto;
+  padding: 30px;
+  width: 400px;
+  height: auto;
+  overflow: hidden;
+  background: white;
+  border-radius: 10px;
 }
 
 form label {
-	font-size:14px;
-	color:darkgray;
-	cursor:pointer;
+  font-size: 14px;
+  color: darkgray;
+  cursor: pointer;
 }
 
 form label,
 form input {
-	float:left;
-	clear:both;
+  float: left;
+  clear: both;
 }
 
 form input {
-	margin:15px 0;
-	padding:15px 10px;
-	width:100%;
-	outline:none;
-	border:1px solid #bbb;
-	border-radius:20px;
-	display:inline-block;
-	-webkit-box-sizing:border-box;
-	   -moz-box-sizing:border-box;
-	        box-sizing:border-box;
-    -webkit-transition:0.2s ease all;
-	   -moz-transition:0.2s ease all;
-	    -ms-transition:0.2s ease all;
-	     -o-transition:0.2s ease all;
-	        transition:0.2s ease all;
+  margin: 15px 0;
+  padding: 15px 10px;
+  width: 100%;
+  outline: none;
+  border: 1px solid #bbb;
+  border-radius: 20px;
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -ms-transition: 0.2s ease all;
+  -o-transition: 0.2s ease all;
+  transition: 0.2s ease all;
 }
 
-form input[type=text]:focus,
+form input[type="text"]:focus,
 form input[type="password"]:focus {
-	border-color:cornflowerblue;
+  border-color: cornflowerblue;
 }
 
-input[type=submit] {
-	padding:15px 50px;
-	width:auto;
-	background:#1abc9c;
-	border:none;
-	color:white;
-	cursor:pointer;
-	display:inline-block;
-	float:right;
-	clear:right;
-	-webkit-transition:0.2s ease all;
-	   -moz-transition:0.2s ease all;
-	    -ms-transition:0.2s ease all;
-	     -o-transition:0.2s ease all;
-	        transition:0.2s ease all;
+input[type="submit"] {
+  padding: 15px 50px;
+  width: auto;
+  background: #1abc9c;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  float: right;
+  clear: right;
+  -webkit-transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -ms-transition: 0.2s ease all;
+  -o-transition: 0.2s ease all;
+  transition: 0.2s ease all;
 }
 
-input[type=submit]:hover {
-	opacity:0.8;
+input[type="submit"]:hover {
+  opacity: 0.8;
 }
 
 input[type="submit"]:active {
-	opacity:0.4;
+  opacity: 0.4;
 }
 
-#showbox{
-	
-	
-	margin: auto;
-	padding-top: 10px;
-
-
+#showbox {
+  margin: auto;
+  padding-top: 10px;
 }
 .addbutton {
-	background-color: rgb(42, 233, 90);
-	width: 15%;
-	margin-left: 42%;
-	border-radius: 10px;
-	max-width: 200px;
+  background-color: rgb(42, 233, 90);
+  width: 15%;
+  margin-left: 42%;
+  border-radius: 10px;
+  max-width: 200px;
 }
 .loader-wrapper {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	background-color: #b975ae;
-	display:flex;
-	justify-content: center;
-	align-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #b975ae;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loader {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  border: 4px solid #fff;
+  animation: loader 2s infinite ease;
+}
+.loader-inner {
+  vertical-align: top;
+  display: inline-block;
+  width: 100%;
+  background-color: #fff;
+  animation: loader-inner 2s infinite ease-in;
+}
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
   }
-  .loader {
-	display: inline-block;
-	width: 30px;
-	height: 30px;
-	position: relative;
-	border: 4px solid #Fff;
-	animation: loader 2s infinite ease;
+  25% {
+    transform: rotate(180deg);
   }
-  .loader-inner {
-	vertical-align: top;
-	display: inline-block;
-	width: 100%;
-	background-color: #fff;
-	animation: loader-inner 2s infinite ease-in;
+  50% {
+    transform: rotate(180deg);
   }
-  @keyframes loader {
-	0% { transform: rotate(0deg);}
-	25% { transform: rotate(180deg);}
-	50% { transform: rotate(180deg);}
-	75% { transform: rotate(360deg);}
-	100% { transform: rotate(360deg);}
+  75% {
+    transform: rotate(360deg);
   }
-  @keyframes loader-inner {
-	0% { height: 0%;}
-	25% { height: 0%;}
-	50% { height: 100%;}
-	75% { height: 100%;}
-	100% { height: 0%;}
+  100% {
+    transform: rotate(360deg);
   }
+}
+@keyframes loader-inner {
+  0% {
+    height: 0%;
+  }
+  25% {
+    height: 0%;
+  }
+  50% {
+    height: 100%;
+  }
+  75% {
+    height: 100%;
+  }
+  100% {
+    height: 0%;
+  }
+}
 
+@media (max-width: 767px) {
+  .margin {
+    margin-bottom: 4%;
+  }
+}
+.bg_none {
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0,
+    rgba(0, 0, 0, 0) 100%
+  ) !important;
+  color: black;
+}
+.bottom {
+  bottom: -30px;
+}
+.caro_bor {
+  border: 1px solid #0a0a0a !important;
+}
+.product_title p {
+  text-transform: uppercase;
+  font-size: 1.5em;
+  font-weight: 1000;
+}
+.product_price p {
+  font-size: 1.5em;
+  color: #c93;
+}
+.border_line {
+  content: "";
+  width: 70%;
+  border-top: 1px solid gray;
+}
+.product_desc .head {
+  font-size: 20px;
+  font-weight: bold;
+}
+.product_desc .lorem {
+  text-align: left;
+}
+.product_desc ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+.product_desc ul li {
+  font-size: 16px;
+  font-weight: bold;
+}
+.fa {
+  padding: 15px;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50%;
+}
 
+.social-btn{display: inline;}
+
+.fa:hover {
+  opacity: 0.7;
+}
+
+.fa-facebook {
+  background: #3b5998;
+  color: white;
+}
+.fa-instagram {
+    background:  #e4717a;
+    color: white;
+}
+.fa-google{
+	background:  #dd4b39;
+    color: white;
+	
+}
+.fa-twitter {
+	background: #55ACEE;
+	color: white;
+  }
