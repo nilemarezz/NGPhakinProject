@@ -10,31 +10,20 @@ mongoose.connect("mongodb://localhost/ngPhakin",{ useNewUrlParser: true });
 
 var Pattern = new mongoose.Schema({
     name:String,
-    pic:String
+    pic:String,
+    description : String
 })
 var listmenu = mongoose.model("listmenu",Pattern);
 
 
 // -------Route ----------------
 
+// Landing Page
 app.get("/",(req,res)=>{
     res.render("landing.ejs")
 })
 
-app.post("/add",(req,res)=>{
-    var name = req.body.name;
-    var pic = req.body.pic;
-    var newitem = {name:name,pic:pic};
-    listmenu.create(newitem,function(err,listmenu){
-        if(err){
-            console.log(err)
-        }else{
-            res.redirect("/show");
-        }
-    });
-    
-})
-
+//Show all items
 app.get("/show", (req,res) =>{
     listmenu.find({},function(err,listmenu){
         if(err){
@@ -47,10 +36,31 @@ app.get("/show", (req,res) =>{
     
 })
 
+
+
+// Add form
 app.get("/addform", (req,res) =>{
     
     res.render("Addlist.ejs")
 })
+
+
+// Add to DB
+app.post("/add",(req,res)=>{
+    var name = req.body.name;
+    var pic = req.body.pic;
+    var description = req.body.description;
+    var newitem = {name:name,pic:pic,description:description};
+    listmenu.create(newitem,function(err,listmenu){
+        if(err){
+            console.log(err)
+        }else{
+            res.redirect("/show");
+        }
+    });
+    
+})
+
 app.listen(3000,function(){
     console.log("NGPhakin has started!!")
 });
