@@ -3,8 +3,11 @@ var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var listmenu = require("./models/listmenu");
-var comments = require("./models/comments");
+var Comment = require("./models/comments");
+var seedDB = require("./seeds");
 
+
+seedDB();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.set("view engine","ejs");
@@ -35,12 +38,11 @@ app.get("/show", (req,res) =>{
 
 //show detail of that item
 app.get("/show/:id", (req,res) =>{
-
-    
-    listmenu.findById(req.params.id,function(err,listdetail){
+    listmenu.findById(req.params.id).populate("comments").exec(function(err,listdetail){
         if(err){
             console.log(err);
         }else{
+            
             console.log(listdetail);
             res.render("showdesc.ejs",{list:listdetail})
             

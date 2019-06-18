@@ -1,10 +1,14 @@
 var mongoose = require("mongoose");
 
-var Pattern = new mongoose.Schema({
+var listmenuSchema = new mongoose.Schema({
     name:String,
     pic:String,
-    description : String
+    description : String,
+    comments:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Comment"
+    }]
 })
-var listmenu = mongoose.model("listmenu",Pattern);
+var listmenu = mongoose.model("listmenu",listmenuSchema);
 
 module.exports = listmenu;

@@ -45,7 +45,9 @@
         </div>
     </div>
 
-   
+    <% list.comments.forEach(function(comment){%>
+        <h5><strong><%= comment.author%></strong> - <%= comment.text%> </h5>
+    <% })%>
 </div>
 
  <% include partial/loadeffect%>
