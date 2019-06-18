@@ -77,6 +77,31 @@ app.post("/add",(req,res)=>{
     
 })
 
+app.post("/comment/:id",function(req,res){
+    var author = req.body.author;
+    var text = req.body.text;
+    var newcomment={author:author,text:text}
+    listmenu.findById(req.params.id,function(err,listmenu){
+        if(err){
+            console.log(err)
+        }else{
+            Comment.create(newcomment,function(err,Comment){
+                if(err){
+                    console.log(err)
+                }else{
+                    listmenu.comments.push(Comment)
+                    listmenu.save();
+                    res.redirect("/show/"+req.params.id)
+                }
+            })
+            
+            
+        }
+    })
+    
+
+})
+
 app.listen(3000,function(){
     console.log("NGPhakin has started!!")
 });

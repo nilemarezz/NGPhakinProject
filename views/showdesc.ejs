@@ -5,6 +5,11 @@
         <div class="col-md-6 col-sm-6 margin">
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
                 <img src="<%=list.pic%>" style="width:450px;height:300px;" />
+                <div class="container">
+
+
+
+                </div>
             </div>
         </div>
         <br /><br />
@@ -23,7 +28,7 @@
             <div class="border_line"></div>
             <div class="product_desc">
                 <p class="head">Score : </p>
-                
+
             </div>
             <div class="border_line"></div>
             <br>
@@ -31,23 +36,87 @@
                 <p class="head">Link</p>
                 <p class="lorem">
                     <div class="social-btn">
-                    
-                    <a href="#" class="fa fa-facebook"></a>
-                    <a href="#" class="fa fa-instagram"></a>
-                    <a href="#" class="fa fa fa-google"></a>
-                    <a href="#" class="fa fa-twitter"></a>
-                    
 
-                </div>
+                        <a href="#" class="fa fa-facebook"></a>
+                        <a href="#" class="fa fa-instagram"></a>
+                        <a href="#" class="fa fa fa-google"></a>
+                        <a href="#" class="fa fa-twitter"></a>
+
+
+                    </div>
             </div>
-            
-            
+
+
         </div>
     </div>
+    <div class="comments-app" ng-app="commentsApp" ng-controller="CommentsController as cmntCtrl">
+        <h1>Comments</h1>
 
-    <% list.comments.forEach(function(comment){%>
-        <h5><strong><%= comment.author%></strong> - <%= comment.text%> </h5>
-    <% })%>
-</div>
+        <!-- From -->
+        <div class="comment-form">
+            <!-- Comment Avatar -->
+            <div class="comment-avatar">
+                <img src="https://flyjazz.ca/wp-content/uploads/2017/01/dummy-user.jpg">
+            </div>
 
- <% include partial/loadeffect%>
+            <form class="form" name="form" ng-submit="form.$valid && cmntCtrl.addComment()" novalidate method="post" action="/comment/<%= list._id%>">
+                <div class="form-row">
+                    <textarea class="input" ng-model="cmntCtrl.comment.text" placeholder="Add comment..."
+                        required name="text"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <input class="input" ng-class="{ disabled: cmntCtrl.comment.anonymous }"
+                        ng-disabled="cmntCtrl.comment.anonymous" ng-model="cmntCtrl.comment.author"
+                        ng-required="!cmntCtrl.comment.anonymous" placeholder="Name" type="Name" name="author">
+                </div>
+
+
+
+                <div class="form-row">
+                    <input type="submit" value="Add Comment">
+                </div>
+            </form>
+        </div>
+
+        <% list.comments.forEach(function(comment){%>
+        <!-- Comments List -->
+        <div class="comments">
+            <!-- Comment -->
+            <div class="comment" ng-repeat="comment in cmntCtrl.comments | orderBy: '-date'">
+                <!-- Comment Avatar -->
+                <div class="comment-avatar">
+                    <img ng-src="{{ comment.avatarSrc }}">
+                </div>
+
+
+                <!-- Comment - Dummy -->
+                <div class="comment">
+                    <!-- Comment Avatar -->
+                    <div class="comment-avatar">
+                        <img src="https://flyjazz.ca/wp-content/uploads/2017/01/dummy-user.jpg">
+                    </div>
+
+                    <!-- Comment Box -->
+                    <div class="comment-box">
+                        <div class="comment-text"><%=comment.text%></div>
+                        <div class="comment-footer">
+                            <div class="comment-info">
+                                <span class="comment-author">
+                                    <a href="mailto:sexar@pagelab.io"><%=comment.author%></a>
+                                </span>
+                                <span class="comment-date">Feb 2, 2013 11:32:04 PM</span>
+                            </div>
+
+                            <div class="comment-actions">
+                                <a href="#">Reply</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <% })%>
+
+
+
+                <% include partial/loadeffect%>
