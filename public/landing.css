@@ -353,3 +353,10 @@ h1 {
   width: 15%;
 }
 
+.addbutton{
+  background-color: aqua;
+  width: 15%;
+  margin-left: 40%;
+  border-radius: 8px;
+}
+
