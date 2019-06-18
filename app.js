@@ -2,18 +2,15 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var listmenu = require("./models/listmenu");
+var comments = require("./models/comments");
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.set("view engine","ejs");
 mongoose.connect("mongodb://localhost/ngPhakin",{ useNewUrlParser: true });
 
-var Pattern = new mongoose.Schema({
-    name:String,
-    pic:String,
-    description : String
-})
-var listmenu = mongoose.model("listmenu",Pattern);
+
 
 
 // -------Route ----------------
