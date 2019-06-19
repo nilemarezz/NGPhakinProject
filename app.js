@@ -118,6 +118,24 @@ app.post("/comment/:id",function(req,res){
 
 })
 
+app.get("/register",function(req,res){
+    res.render("register");
+})
+
+app.post("/register",function(req,res){
+    var newUser = new User({username:req.body.username});
+    User.register(newUser,req.body.password,function(err,user){
+        if(err){
+            console.log(err)
+            return res.redirect("/register");
+        }
+        passport.authenticate("local")(req,res,function(){
+            res.redirect("/show")
+        });
+
+    })
+});
+
 app.listen(3000,function(){
     console.log("NGPhakin has started!!")
 });
