@@ -16,6 +16,10 @@ app.use(express.static("public"));
 app.set("view engine","ejs");
 mongoose.connect("mongodb://localhost/ngPhakin",{ useNewUrlParser: true });
 seedDB();
+app.use(function(req,res,next){
+    res.locals.CurrentUser = req.user;
+    next();
+})
 
 
 //------------Passport----------------
@@ -32,6 +36,7 @@ passport.deserializeUser(User.deserializeUser())
 
 
 
+
 // -------Route ----------------
 
 // Landing Page
@@ -41,12 +46,13 @@ app.get("/",(req,res)=>{
 
 //Show all items
 app.get("/show", (req,res) =>{
+    console.log(req.user);
     listmenu.find({},function(err,listmenu){
         if(err){
             console.log(err)
         }else{
             console.log(listmenu)
-            res.render("showitems.ejs",{list : listmenu})
+            res.render("showitems.ejs",{list : listmenu, CurrentUser: req.user})
         }
     })
     
@@ -93,7 +99,7 @@ app.post("/add",(req,res)=>{
     
 })
 
-app.post("/comment/:id",function(req,res){
+app.post("/comment/:id",isLoggedIn,function(req,res){
     var author = req.body.author;
     var text = req.body.text;
     var newcomment={author:author,text:text}
@@ -135,6 +141,32 @@ app.post("/register",function(req,res){
 
     })
 });
+
+app.get("/login",function(req,res){
+    
+    res.render("login");
+})
+
+app.post("/login",passport.authenticate("local",{
+    successRedirect: "/show",
+    failureRedirect:"/login"
+}),function(req,res){
+    console.log("user has login")
+})
+
+app.get("/logout",function(req,res){
+    req.logout();
+    console.log("user has logout")
+    res.redirect("/show");
+})
+
+function isLoggedIn(req,res,next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/login");
+}
+
 
 app.listen(3000,function(){
     console.log("NGPhakin has started!!")
