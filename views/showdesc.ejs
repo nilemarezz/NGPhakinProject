@@ -15,10 +15,17 @@
         <br /><br />
         <div class="col-md-6 col-sm-6">
             <div class="product_title">
-                <p style="font-size:40px;"><%= list.name%></p>
+                <p style="font-size:40px;"><%= list.name%> </p>
                 
             </div>
-            <p>Posted By: <%= list.author.username%></p>
+            <div>
+            <p>Posted By: <%= list.author.username%> 
+            
+            <form action="/show/<%=list._id%>/delete?_method=DELETE" method="POST">
+            <button class="btn btn-danger btn-sm"> <i class="fas fa-trash-alt"></i></button>
+            <a href="/show/<%= list._id%>/edit" class="btn btn-primary btn-sm"> Edit</a>
+            </form>
+            </div>
             <div class="border_line"></div>
             <div class="product_price">
                 <p>Price: 2,500</p>

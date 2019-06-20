@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router({mergeParams:true});
 var listmenu = require("../models/listmenu");
-
+var Comment = require("../models/comments");
 //Show all items
 router.get("/show", (req,res) =>{
     console.log(req.user);
@@ -54,6 +54,48 @@ router.post("/add",isLoggedIn,(req,res)=>{
             res.redirect("/show");
         }
     });
+    
+})
+
+router.get("/show/:id/edit",function(req,res){
+    listmenu.findById(req.params.id,function(err,list){
+        if(err){
+            console.log(err)
+            res.redirect("/show")
+        }else{
+            res.render("listEdit",{list:list});
+        }
+    })
+    
+})
+
+router.put("/show/:id/edit",function(req,res){
+    var name = req.body.name;
+    var pic = req.body.pic;
+    var description = req.body.description;
+    var editpost = {name:name,pic:pic,description:description};
+    listmenu.findByIdAndUpdate(req.params.id,editpost,function(err,list){
+        if(err){
+            res.redirect("/show");
+        }else{
+            res.redirect("/show/"+ req.params.id);
+        }
+
+    })
+})
+
+router.delete("/show/:id/delete",function(req,res){
+    listmenu.findByIdAndDelete(req.params.id,function(err,list){
+        if(err){
+            console.log(err)
+        }
+        Comment.deleteMany( {_id: { $in: list.comments } }, (err) => {
+            if (err) {
+                console.log(err);
+            }
+            res.redirect("/show");
+        });
+    })
     
 })
 

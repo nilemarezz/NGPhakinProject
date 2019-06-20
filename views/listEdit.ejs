@@ -1,0 +1,24 @@
+<% include partial/header%>
+
+<h1 style="margin-top:7%;">This is Edit <%=list.name%></h1>
+
+
+<form method="post" action="/show/<%=list._id%>/edit?_method=PUT">
+  <label for="name">name</label>
+  <input type="text" id="name" name="name" placeholder="Type Name" value="<%=list.name%>" autocomplete="off" required />
+
+  <label for="pic">Pic url</label>
+  <input type="text" id="pic" name="pic" placeholder="Enter your url picture" value="<%=list.pic%>" autocomplete="off" required />
+  
+  <label for="description">Description</label>
+  <input type="text" id="description" name="description" placeholder="Enter your description" value="<%=list.description%>" autocomplete="off" required />
+  
+  <div class="submitform" style="float:left;margin:0;">
+    <input type="submit" name="submit" value="submit" style="width:350px;" />
+    <a class="nav-link" href="/show ">Back</a>
+
+  </div>
+</form>
+
+<% include partial/footer%>
+<% include partial/loadeffect%>
