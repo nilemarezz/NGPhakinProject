@@ -39,133 +39,15 @@ passport.deserializeUser(User.deserializeUser())
 
 // -------Route ----------------
 
+var commentRoute = require("./routes/comments");
+var listRoute = require("./routes/list");
+var indexRoute = require("./routes/index");
+
+app.use(indexRoute);
+app.use(commentRoute);
+app.use(listRoute);
+
 // Landing Page
-app.get("/",(req,res)=>{
-    res.render("landing.ejs")
-})
-
-//Show all items
-app.get("/show", (req,res) =>{
-    console.log(req.user);
-    listmenu.find({},function(err,listmenu){
-        if(err){
-            console.log(err)
-        }else{
-            console.log(listmenu)
-            res.render("showitems.ejs",{list : listmenu, CurrentUser: req.user})
-        }
-    })
-    
-})
-
-//show detail of that item
-app.get("/show/:id", (req,res) =>{
-    listmenu.findById(req.params.id).populate("comments").exec(function(err,listdetail){
-        if(err){
-            console.log(err);
-        }else{
-            
-            console.log(listdetail);
-            res.render("showdesc.ejs",{list:listdetail})
-            
-        }
-    })
-    
-    
-})
-
-
-
-// Add form
-app.get("/addform", (req,res) =>{
-    
-    res.render("Addlist.ejs")
-})
-
-
-// Add to DB
-app.post("/add",(req,res)=>{
-    var name = req.body.name;
-    var pic = req.body.pic;
-    var description = req.body.description;
-    var newitem = {name:name,pic:pic,description:description};
-    listmenu.create(newitem,function(err,listmenu){
-        if(err){
-            console.log(err)
-        }else{
-            res.redirect("/show");
-        }
-    });
-    
-})
-
-app.post("/comment/:id",isLoggedIn,function(req,res){
-    var author = req.body.author;
-    var text = req.body.text;
-    var newcomment={author:author,text:text}
-    listmenu.findById(req.params.id,function(err,listmenu){
-        if(err){
-            console.log(err)
-        }else{
-            Comment.create(newcomment,function(err,Comment){
-                if(err){
-                    console.log(err)
-                }else{
-                    listmenu.comments.push(Comment)
-                    listmenu.save();
-                    res.redirect("/show/"+req.params.id)
-                }
-            })
-            
-            
-        }
-    })
-    
-
-})
-
-app.get("/register",function(req,res){
-    res.render("register");
-})
-
-app.post("/register",function(req,res){
-    var newUser = new User({username:req.body.username});
-    User.register(newUser,req.body.password,function(err,user){
-        if(err){
-            console.log(err)
-            return res.redirect("/register");
-        }
-        passport.authenticate("local")(req,res,function(){
-            res.redirect("/show")
-        });
-
-    })
-});
-
-app.get("/login",function(req,res){
-    
-    res.render("login");
-})
-
-app.post("/login",passport.authenticate("local",{
-    successRedirect: "/show",
-    failureRedirect:"/login"
-}),function(req,res){
-    console.log("user has login")
-})
-
-app.get("/logout",function(req,res){
-    req.logout();
-    console.log("user has logout")
-    res.redirect("/show");
-})
-
-function isLoggedIn(req,res,next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect("/login");
-}
 
 
 app.listen(3000,function(){
