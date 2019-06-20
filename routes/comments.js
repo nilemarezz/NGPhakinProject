@@ -4,9 +4,13 @@ var listmenu = require("../models/listmenu");
 var Comment = require("../models/comments");
 
 router.post("/comment/:id",isLoggedIn,function(req,res){
-    var author = req.body.author;
+    
     var text = req.body.text;
-    var newcomment={author:author,text:text}
+    var author = {
+        id:req.user._id,
+        username:req.user.username
+    }
+    var newcomment={text:text,author:author}
     listmenu.findById(req.params.id,function(err,listmenu){
         if(err){
             console.log(err)
@@ -16,9 +20,6 @@ router.post("/comment/:id",isLoggedIn,function(req,res){
                     console.log(err)
                 }else{
 
-                    Comments.author.id = req.user._id;
-                    Comments.author.username = req.user.username;
-                    Comments.save()
                     listmenu.comments.push(Comments)
                     listmenu.save();
                     res.redirect("/show/"+req.params.id)

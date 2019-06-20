@@ -37,11 +37,16 @@ router.get("/addform", isLoggedIn ,(req,res) =>{
     res.render("Addlist.ejs")
 })
 // Add to DB
-router.post("/add",(req,res)=>{
+router.post("/add",isLoggedIn,(req,res)=>{
     var name = req.body.name;
     var pic = req.body.pic;
     var description = req.body.description;
-    var newitem = {name:name,pic:pic,description:description};
+    var author = {
+        id: req.user._id,
+        username: req.user.username
+    }
+    var newitem = {name:name,pic:pic,description:description,author:author};
+    
     listmenu.create(newitem,function(err,listmenu){
         if(err){
             console.log(err)
