@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
-var listmenu = require("../routes/list");
-var Comment = require("../routes/index");
+var listmenu = require("../models/listmenu");
+var Comment = require("../models/comments");
 
 router.post("/comment/:id",isLoggedIn,function(req,res){
     var author = req.body.author;
@@ -11,11 +11,15 @@ router.post("/comment/:id",isLoggedIn,function(req,res){
         if(err){
             console.log(err)
         }else{
-            Comment.create(newcomment,function(err,Comment){
+            Comment.create(newcomment,function(err,Comments){
                 if(err){
                     console.log(err)
                 }else{
-                    listmenu.comments.push(Comment)
+
+                    Comments.author.id = req.user._id;
+                    Comments.author.username = req.user.username;
+                    Comments.save()
+                    listmenu.comments.push(Comments)
                     listmenu.save();
                     res.redirect("/show/"+req.params.id)
                 }

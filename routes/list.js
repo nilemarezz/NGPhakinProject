@@ -32,7 +32,7 @@ router.get("/show/:id", (req,res) =>{
     
 })
 // Add form
-router.get("/addform", (req,res) =>{
+router.get("/addform", isLoggedIn ,(req,res) =>{
     
     res.render("Addlist.ejs")
 })
@@ -51,6 +51,14 @@ router.post("/add",(req,res)=>{
     });
     
 })
+
+function isLoggedIn(req,res,next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/login");
+}
+
 
 
 module.exports = router;

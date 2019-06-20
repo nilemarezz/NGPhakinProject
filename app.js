@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.set("view engine","ejs");
 mongoose.connect("mongodb://localhost/ngPhakin",{ useNewUrlParser: true });
-seedDB();
+// seedDB();
 app.use(function(req,res,next){
     res.locals.CurrentUser = req.user;
     next();
