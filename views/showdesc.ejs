@@ -20,11 +20,12 @@
             </div>
             <div>
             <p>Posted By: <%= list.author.username%> 
-            
+            <%if(currentUser &&list.author.id.equals(currentUser._id)){%>
             <form action="/show/<%=list._id%>/delete?_method=DELETE" method="POST">
             <button class="btn btn-danger btn-sm"> <i class="fas fa-trash-alt"></i></button>
             <a href="/show/<%= list._id%>/edit" class="btn btn-primary btn-sm"> Edit</a>
             </form>
+            <%}%>
             </div>
             <div class="border_line"></div>
             <div class="product_price">

@@ -9,6 +9,9 @@ var Comment = require("./models/comments");
 var User = require("./models/user")
 var seedDB = require("./seeds");
 var methodOverride= require("method-override");
+var commentRoute = require("./routes/comments");
+var listRoute = require("./routes/list");
+var indexRoute = require("./routes/index");
 
 
 //--------Config-------------------
@@ -19,7 +22,7 @@ app.set("view engine","ejs");
 mongoose.connect("mongodb://localhost/ngPhakin",{ useNewUrlParser: true });
 // seedDB();
 app.use(function(req,res,next){
-    res.locals.CurrentUser = req.user;
+    res.locals.currentUser = req.user;
     next();
 });
 
@@ -43,9 +46,7 @@ passport.deserializeUser(User.deserializeUser())
 
 // -------Route ----------------
 
-var commentRoute = require("./routes/comments");
-var listRoute = require("./routes/list");
-var indexRoute = require("./routes/index");
+
 
 app.use(indexRoute);
 app.use(commentRoute);

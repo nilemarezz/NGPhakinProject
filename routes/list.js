@@ -10,7 +10,7 @@ router.get("/show", (req,res) =>{
             console.log(err)
         }else{
             console.log(listmenu)
-            res.render("showitems.ejs",{list : listmenu, CurrentUser: req.user})
+            res.render("showitems.ejs",{list : listmenu, currentUser: req.user})
         }
     })
     
@@ -24,7 +24,7 @@ router.get("/show/:id", (req,res) =>{
         }else{
             
             console.log(listdetail);
-            res.render("showdesc.ejs",{list:listdetail})
+            res.render("showdesc.ejs",{list:listdetail, currentUser: req.user})
             
         }
     })
@@ -34,7 +34,7 @@ router.get("/show/:id", (req,res) =>{
 // Add form
 router.get("/addform", isLoggedIn ,(req,res) =>{
     
-    res.render("Addlist.ejs")
+    res.render("Addlist.ejs", {currentUser: req.user})
 })
 // Add to DB
 router.post("/add",isLoggedIn,(req,res)=>{
@@ -57,19 +57,13 @@ router.post("/add",isLoggedIn,(req,res)=>{
     
 })
 
-router.get("/show/:id/edit",function(req,res){
+router.get("/show/:id/edit",checklistOwner,function(req,res){
     listmenu.findById(req.params.id,function(err,list){
-        if(err){
-            console.log(err)
-            res.redirect("/show")
-        }else{
-            res.render("listEdit",{list:list});
-        }
+            res.render("listEdit",{list:list, currentUser: req.user});
+        })
     })
-    
-})
 
-router.put("/show/:id/edit",function(req,res){
+router.put("/show/:id/edit",checklistOwner,function(req,res){
     var name = req.body.name;
     var pic = req.body.pic;
     var description = req.body.description;
@@ -84,7 +78,7 @@ router.put("/show/:id/edit",function(req,res){
     })
 })
 
-router.delete("/show/:id/delete",function(req,res){
+router.delete("/show/:id/delete",checklistOwner,function(req,res){
     listmenu.findByIdAndDelete(req.params.id,function(err,list){
         if(err){
             console.log(err)
@@ -98,6 +92,26 @@ router.delete("/show/:id/delete",function(req,res){
     })
     
 })
+
+function checklistOwner(req,res,next){
+    if(req.isAuthenticated()){
+        listmenu.findById(req.params.id,function(err,list){
+            if(err){
+                console.log(err)
+                res.redirect("back")
+            }else{
+                if(list.author.id.equals(req.user._id)){
+                    next();
+                }else{
+                    res.redirect("back");
+                }
+                
+            }
+        })
+    }else{
+        res.redirect("back");
+    }
+}
 
 function isLoggedIn(req,res,next){
     if(req.isAuthenticated()){
