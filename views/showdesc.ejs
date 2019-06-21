@@ -29,7 +29,7 @@
             </div>
             <div class="border_line"></div>
             <div class="product_price">
-                <p>Price: <%= list.price%></p>
+                <p>Price: <%= list.price%> ฿</p>
             </div>
             <div class="border_line"></div>
             <div class="product_desc">
@@ -38,7 +38,7 @@
             </div>
             <div class="border_line"></div>
             <div class="product_desc">
-                <p class="head">Score :<%= list.Score%></p>
+                <p class="head">Score : <%= list.Score%>/5</p>
 
             </div>
             <div class="border_line"></div>
@@ -109,10 +109,13 @@
                     <div class="comment-box">
                         <div class="comment-text"><%=comment.text%></div>
                         <div class="comment-footer">
-                        <form action="/comment/<%= list._id%>/<%=comment._id%>/delete?_method=DELETE" method="POST" style="float:right">
+                        <%if(currentUser && comment.author.id.equals(currentUser._id)){%>
+                   <form action="/comment/<%= list._id%>/<%=comment._id%>/delete?_method=DELETE" method="POST" style="float:right">
                             
                             <button><i class="fas fa-trash-alt" style="color:grey"></i></button>
                         </form>
+                    <%}%>
+                        
                             <div class="comment-info">
 
                                 <span class="comment-author">
