@@ -38,14 +38,20 @@ router.get("/addform", isLoggedIn ,(req,res) =>{
 })
 // Add to DB
 router.post("/add",isLoggedIn,(req,res)=>{
-    var name = req.body.name;
-    var pic = req.body.pic;
-    var description = req.body.description;
+    
     var author = {
         id: req.user._id,
         username: req.user.username
     }
-    var newitem = {name:name,pic:pic,description:description,author:author};
+    var newitem = {
+        name:req.body.name,
+        pic:req.body.pic,
+        description:req.body.description,
+        author:author,
+        price:req.body.price,
+        Score:req.body.Score,
+        fblink:req.body.fblink
+    };
     
     listmenu.create(newitem,function(err,listmenu){
         if(err){

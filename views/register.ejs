@@ -1,17 +1,32 @@
 <% include partial/header%>
-
+<br>
 <div class="container">
-    <h1>signUp</h1>
+    <h1>Register</h1>
 
 <form action="/register" method="POST">
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <input type="submit">
+   <div class="form-group">
+    <label for="exampleInputEmail1">Username</label>
+    <input type="text" class="form-control" name="username" id="exampleInputEmail1" placeholder="Enter Username">
+    
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+<h1 style="color:red;text-align:center">Dont Enter Your Real Information!!</h1>
 </div>
 
 
+<script>
+    alert("Don't Enter your Real Information!!!")
+</script>
 
 
-<% include partial/footer%>
+
+
+
 <% include partial/loadeffect%>

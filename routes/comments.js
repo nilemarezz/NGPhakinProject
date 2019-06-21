@@ -32,6 +32,16 @@ router.post("/comment/:id",isLoggedIn,function(req,res){
     
 
 })
+
+router.delete("/comment/:id/:comment_id/delete",function(req,res){
+    Comment.findByIdAndDelete(req.params.comment_id,function(err,Comment){
+        if(err){
+            console.log(err)
+        }else{
+            res.redirect("/show/"+req.params.id)
+        }
+    })
+})
 function isLoggedIn(req,res,next){
     if(req.isAuthenticated()){
         return next();

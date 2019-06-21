@@ -16,20 +16,20 @@
         <div class="col-md-6 col-sm-6">
             <div class="product_title">
                 <p style="font-size:40px;"><%= list.name%> </p>
-                
+
             </div>
             <div>
-            <p>Posted By: <%= list.author.username%> 
-            <%if(currentUser &&list.author.id.equals(currentUser._id)){%>
-            <form action="/show/<%=list._id%>/delete?_method=DELETE" method="POST">
-            <button class="btn btn-danger btn-sm"> <i class="fas fa-trash-alt"></i></button>
-            <a href="/show/<%= list._id%>/edit" class="btn btn-primary btn-sm"> Edit</a>
-            </form>
-            <%}%>
+                <p>Posted By: <%= list.author.username%>
+                    <%if(currentUser &&list.author.id.equals(currentUser._id)){%>
+                    <form action="/show/<%=list._id%>/delete?_method=DELETE" method="POST">
+                        <button class="btn btn-danger btn-sm"> <i class="fas fa-trash-alt"></i></button>
+                        <a href="/show/<%= list._id%>/edit" class="btn btn-primary btn-sm"> Edit</a>
+                    </form>
+                    <%}%>
             </div>
             <div class="border_line"></div>
             <div class="product_price">
-                <p>Price: 2,500</p>
+                <p>Price: <%= list.price%></p>
             </div>
             <div class="border_line"></div>
             <div class="product_desc">
@@ -38,7 +38,7 @@
             </div>
             <div class="border_line"></div>
             <div class="product_desc">
-                <p class="head">Score : </p>
+                <p class="head">Score :<%= list.Score%></p>
 
             </div>
             <div class="border_line"></div>
@@ -48,7 +48,7 @@
                 <p class="lorem">
                     <div class="social-btn">
 
-                        <a href="#" class="fa fa-facebook"></a>
+                        <a href="<%= list.fblink%>" class="fa fa-facebook"></a>
                         <a href="#" class="fa fa-instagram"></a>
                         <a href="#" class="fa fa fa-google"></a>
                         <a href="#" class="fa fa-twitter"></a>
@@ -70,13 +70,14 @@
                 <img src="https://flyjazz.ca/wp-content/uploads/2017/01/dummy-user.jpg">
             </div>
 
-            <form class="form" name="form" ng-submit="form.$valid && cmntCtrl.addComment()" novalidate method="post" action="/comment/<%= list._id%>">
+            <form class="form" name="form" ng-submit="form.$valid && cmntCtrl.addComment()" novalidate method="post"
+                action="/comment/<%= list._id%>">
                 <div class="form-row">
-                    <textarea class="input" ng-model="cmntCtrl.comment.text" placeholder="Add comment..."
-                        required name="text"></textarea>
+                    <textarea class="input" ng-model="cmntCtrl.comment.text" placeholder="Add comment..." required
+                        name="text"></textarea>
                 </div>
 
-                
+
 
 
 
@@ -108,11 +109,20 @@
                     <div class="comment-box">
                         <div class="comment-text"><%=comment.text%></div>
                         <div class="comment-footer">
+                        <form action="/comment/<%= list._id%>/<%=comment._id%>/delete?_method=DELETE" method="POST" style="float:right">
+                            
+                            <button><i class="fas fa-trash-alt" style="color:grey"></i></button>
+                        </form>
                             <div class="comment-info">
+
                                 <span class="comment-author">
                                     <a href="mailto:sexar@pagelab.io"><%=comment.author.username%></a>
                                 </span>
-                                <span class="comment-date"><%=comment.created%></span>
+                                <span class="comment-date"><%=comment.created%>
+
+                                </span>
+
+
                             </div>
                         </div>
                     </div>
