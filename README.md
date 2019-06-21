@@ -25,6 +25,7 @@ $ node app.js
   - Comment (Login Required)
   - Edit post (only the person who own that post)
   - Delete post (only the person who own that post)
+  - Delete Comment (only the person who own that comments)
   
 ### npm Package
  - express , express-session
