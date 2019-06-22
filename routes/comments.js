@@ -2,8 +2,9 @@ var express = require("express");
 var router = express.Router();
 var listmenu = require("../models/listmenu");
 var Comment = require("../models/comments");
+var middleware = require("../middleware/index.js")
 
-router.post("/comment/:id",isLoggedIn,function(req,res){
+router.post("/comment/:id",middleware.isLoggedIn,function(req,res){
     
     var text = req.body.text;
     var author = {
@@ -33,7 +34,7 @@ router.post("/comment/:id",isLoggedIn,function(req,res){
 
 })
 
-router.delete("/comment/:id/:comment_id/delete",checkCommentOwner,function(req,res){
+router.delete("/comment/:id/:comment_id/delete",middleware.checkCommentOwner,function(req,res){
     Comment.findByIdAndDelete(req.params.comment_id,function(err,Comment){
         if(err){
             console.log(err)
@@ -42,30 +43,6 @@ router.delete("/comment/:id/:comment_id/delete",checkCommentOwner,function(req,r
         }
     })
 })
-function isLoggedIn(req,res,next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect("/login");
-}
 
-function checkCommentOwner(req,res,next){
-    if(req.isAuthenticated()){
-        Comment.findById(req.params.comment_id,function(err,Comment){
-            if(err){
-                console.log(err)
-                res.redirect("back")
-            }else{
-                if(Comment.author.id.equals(req.user._id)){
-                    next();
-                }else{
-                    res.redirect("back");
-                }
-                
-            }
-        })
-    }else{
-        res.redirect("back");
-    }
-}
+
 module.exports = router;

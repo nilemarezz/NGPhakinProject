@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router({mergeParams:true});
 var listmenu = require("../models/listmenu");
 var Comment = require("../models/comments");
+var middleware = require("../middleware/index.js")
 //Show all items
 router.get("/show", (req,res) =>{
     console.log(req.user);
@@ -32,12 +33,12 @@ router.get("/show/:id", (req,res) =>{
     
 })
 // Add form
-router.get("/addform", isLoggedIn ,(req,res) =>{
+router.get("/addform", middleware.isLoggedIn ,(req,res) =>{
     
     res.render("Addlist.ejs", {currentUser: req.user})
 })
 // Add to DB
-router.post("/add",isLoggedIn,(req,res)=>{
+router.post("/add",middleware.isLoggedIn,(req,res)=>{
     
     var author = {
         id: req.user._id,
@@ -63,13 +64,13 @@ router.post("/add",isLoggedIn,(req,res)=>{
     
 })
 
-router.get("/show/:id/edit",checklistOwner,function(req,res){
+router.get("/show/:id/edit",middleware.checklistOwner,function(req,res){
     listmenu.findById(req.params.id,function(err,list){
             res.render("listEdit",{list:list, currentUser: req.user});
         })
     })
 
-router.put("/show/:id/edit",checklistOwner,function(req,res){
+router.put("/show/:id/edit",middleware.checklistOwner,function(req,res){
     var name = req.body.name;
     var pic = req.body.pic;
     var description = req.body.description;
@@ -84,7 +85,7 @@ router.put("/show/:id/edit",checklistOwner,function(req,res){
     })
 })
 
-router.delete("/show/:id/delete",checklistOwner,function(req,res){
+router.delete("/show/:id/delete",middleware.checklistOwner,function(req,res){
     listmenu.findByIdAndDelete(req.params.id,function(err,list){
         if(err){
             console.log(err)
@@ -98,33 +99,6 @@ router.delete("/show/:id/delete",checklistOwner,function(req,res){
     })
     
 })
-
-function checklistOwner(req,res,next){
-    if(req.isAuthenticated()){
-        listmenu.findById(req.params.id,function(err,list){
-            if(err){
-                console.log(err)
-                res.redirect("back")
-            }else{
-                if(list.author.id.equals(req.user._id)){
-                    next();
-                }else{
-                    res.redirect("back");
-                }
-                
-            }
-        })
-    }else{
-        res.redirect("back");
-    }
-}
-
-function isLoggedIn(req,res,next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect("/login");
-}
 
 
 
