@@ -2,6 +2,12 @@
 <% include partial/header%>
 <br>
 <div class="container">
+<% if(message && message.length >0){%>
+<div class="alert alert-danger">
+<p><%= message%></p>
+<%}%>
+
+</div>
 <h1>Login</h1>
 
 <form action="/login" method="POST">

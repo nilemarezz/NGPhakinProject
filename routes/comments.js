@@ -39,7 +39,7 @@ router.delete("/comment/:id/:comment_id/delete",middleware.checkCommentOwner,fun
         if(err){
             console.log(err)
         }else{
-            res.redirect("/show/"+req.params.id)
+            res.redirect("/show/"+req.params.id,{message:req.flash("error")})
         }
     })
 })

@@ -12,6 +12,7 @@ var methodOverride= require("method-override");
 var commentRoute = require("./routes/comments");
 var listRoute = require("./routes/list");
 var indexRoute = require("./routes/index");
+var flash = require("connect-flash")
 
 
 //--------Config-------------------
@@ -25,6 +26,8 @@ app.use(function(req,res,next){
     res.locals.currentUser = req.user;
     next();
 });
+
+app.use(flash());
 
 
 
