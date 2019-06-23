@@ -20,7 +20,9 @@ app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.set("view engine","ejs");
-mongoose.connect("mongodb://localhost/ngPhakin",{ useNewUrlParser: true });
+// mongoose.connect("mongodb://localhost/ngPhakin",{ useNewUrlParser: true });
+mongoose.connect("mongodb+srv://nile:Password@cluster0-2xql0.mongodb.net/test?retryWrites=true&w=majority",{ useNewUrlParser: true });
+
 // seedDB();
 app.use(function(req,res,next){
     res.locals.currentUser = req.user;
