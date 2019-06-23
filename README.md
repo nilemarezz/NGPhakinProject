@@ -1,6 +1,6 @@
 # NgPhakin Pracice Project!!
 
-## See At : https://ngphakin.herokuapp.com/show
+## See At : https://ngphakin.herokuapp.com
 
 ##### Tech using
 
